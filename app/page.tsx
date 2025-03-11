@@ -68,9 +68,37 @@ const TrackPage = () => {
             iconAnchor: [8, 8]
           });
 
+          // Create a more detailed popup that includes environmental data
+          let popupContent = `
+            <div style="min-width: 200px;">
+              <h4 style="margin: 0 0 5px; font-weight: bold;">${checkpoint.location}</h4>
+              <p style="margin: 0 0 5px;"><strong>${checkpoint.status}</strong><br><small>${checkpoint.time}</small></p>
+          `;
+          
+          // Add environmental data if available
+          if (checkpoint.envData) {
+            const envData = checkpoint.envData;
+            popupContent += `<div style="margin-top: 8px; border-top: 1px solid #eee; padding-top: 6px;">
+              <p style="margin: 0 0 3px; font-size: 12px; display: flex; justify-content: space-between;">
+                <span>Temperature:</span> <strong>${envData.temperature !== null ? envData.temperature + '°C' : 'N/A'}</strong>
+              </p>
+              <p style="margin: 0 0 3px; font-size: 12px; display: flex; justify-content: space-between;">
+                <span>Humidity:</span> <strong>${envData.humidity !== null ? envData.humidity + '%' : 'N/A'}</strong>
+              </p>
+              <p style="margin: 0 0 3px; font-size: 12px; display: flex; justify-content: space-between;">
+                <span>Light Level:</span> <strong>${envData.lux !== null ? envData.lux + ' lux' : 'N/A'}</strong>
+              </p>
+              <p style="margin: 0 0 3px; font-size: 12px; display: flex; justify-content: space-between;">
+                <span>Battery:</span> <strong>${envData.batteryLife !== null ? envData.batteryLife + '%' : 'N/A'}</strong>
+              </p>
+            </div>`;
+          }
+          
+          popupContent += `</div>`;
+          
           L.marker(checkpoint.coords, {icon: markerIcon})
             .addTo(mapInstanceRef.current)
-            .bindPopup(`<b>${checkpoint.location}</b><br>${checkpoint.status}<br><small>${checkpoint.time}</small>`);
+            .bindPopup(popupContent);
         });
 
         // Use our utility function to draw the route with appropriate styling based on transport mode
@@ -298,6 +326,68 @@ const TrackPage = () => {
                       <p className="font-medium">{selectedShipment.lastUpdate}</p>
                     </div>
                   </div>
+                  
+                  {/* Environmental Data Summary (Current Status) */}
+                  {selectedShipment.checkpoints && selectedShipment.checkpoints.some(cp => cp.location === selectedShipment.currentLocation) && (
+                    <div className="mt-4 border-t pt-4">
+                      <p className="font-medium mb-3">Current Environmental Data</p>
+                      
+                      {(() => {
+                        const currentCheckpoint = selectedShipment.checkpoints.find(
+                          cp => cp.location === selectedShipment.currentLocation
+                        );
+                        
+                        if (currentCheckpoint && currentCheckpoint.envData) {
+                          const envData = currentCheckpoint.envData;
+                          return (
+                            <div className="grid grid-cols-2 gap-6 bg-gray-50 p-3 rounded-lg">
+                              <div className="flex items-center">
+                                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                                  <span className="text-red-500 text-xs">°C</span>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-gray-500">Temperature</p>
+                                  <p className="font-medium">{envData.temperature !== null ? `${envData.temperature}°C` : 'N/A'}</p>
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center">
+                                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                  <span className="text-blue-500 text-xs">%</span>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-gray-500">Humidity</p>
+                                  <p className="font-medium">{envData.humidity !== null ? `${envData.humidity}%` : 'N/A'}</p>
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center">
+                                <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                  <span className="text-yellow-500 text-xs">lx</span>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-gray-500">Light Level</p>
+                                  <p className="font-medium">{envData.lux !== null ? `${envData.lux} lux` : 'N/A'}</p>
+                                </div>
+                              </div>
+                              
+                              <div className="flex items-center">
+                                <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                  <span className="text-green-500 text-xs">%</span>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-gray-500">Battery Life</p>
+                                  <p className="font-medium">{envData.batteryLife !== null ? `${envData.batteryLife}%` : 'N/A'}</p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        } else {
+                          return <p className="text-sm text-gray-500">No environmental data available</p>;
+                        }
+                      })()}
+                    </div>
+                  )}
 
                   <div className="mt-4 border-t pt-4">
                     <p className="font-medium mb-3">Shipment Timeline</p>
@@ -322,6 +412,37 @@ const TrackPage = () => {
                             <p className={`text-sm font-medium ${checkpoint.location === selectedShipment.currentLocation ? 'text-blue-600' : ''}`}>{checkpoint.status}</p>
                             <p className="text-xs text-gray-500">{checkpoint.time}</p>
                             <p className="text-xs text-gray-500">{checkpoint.location}</p>
+                            
+                            {checkpoint.envData && (
+                              <div className="mt-1 text-xs border-t border-gray-100 pt-1">
+                                <div className="grid grid-cols-2 gap-1">
+                                  <div className="flex items-center">
+                                    <span className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center mr-1" title="Temperature">
+                                      <span className="text-red-500 text-[8px]">°C</span>
+                                    </span>
+                                    <span>{checkpoint.envData.temperature !== null ? `${checkpoint.envData.temperature}°C` : 'N/A'}</span>
+                                  </div>
+                                  <div className="flex items-center">
+                                    <span className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center mr-1" title="Humidity">
+                                      <span className="text-blue-500 text-[8px]">%</span>
+                                    </span>
+                                    <span>{checkpoint.envData.humidity !== null ? `${checkpoint.envData.humidity}%` : 'N/A'}</span>
+                                  </div>
+                                  <div className="flex items-center">
+                                    <span className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center mr-1" title="Light Level">
+                                      <span className="text-yellow-500 text-[8px]">lx</span>
+                                    </span>
+                                    <span>{checkpoint.envData.lux !== null ? `${checkpoint.envData.lux} lux` : 'N/A'}</span>
+                                  </div>
+                                  <div className="flex items-center">
+                                    <span className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-1" title="Battery Life">
+                                      <span className="text-green-500 text-[8px]">%</span>
+                                    </span>
+                                    <span>{checkpoint.envData.batteryLife !== null ? `${checkpoint.envData.batteryLife}%` : 'N/A'}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                       ))}

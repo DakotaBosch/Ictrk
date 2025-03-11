@@ -14,9 +14,45 @@ export const activeShipments = [
     transportType: 'plane',
     lastUpdate: '6 hours ago',
     checkpoints: [
-      { time: 'Feb 28, 2025 - 08:30 AM', status: 'Picked Up', location: 'Los Angeles, CA', completed: true, coords: [34.0522, -118.2437] },
-      { time: 'Feb 28, 2025 - 05:45 PM', status: 'In Transit', location: 'Phoenix, AZ', completed: true, coords: [33.4484, -112.0740] },
-      { time: 'March 5, 2025 - 02:00 PM', status: 'Estimated Delivery', location: 'New York, NY', completed: false, coords: [40.7128, -74.0060] }
+      { 
+        time: 'Feb 28, 2025 - 08:30 AM', 
+        status: 'Picked Up', 
+        location: 'Los Angeles, CA', 
+        completed: true, 
+        coords: [34.0522, -118.2437],
+        envData: {
+          temperature: 22.4, // in Celsius
+          humidity: 58, // percentage
+          lux: 1240, // light level
+          batteryLife: 98 // percentage
+        }
+      },
+      { 
+        time: 'Feb 28, 2025 - 05:45 PM', 
+        status: 'In Transit', 
+        location: 'Phoenix, AZ', 
+        completed: true, 
+        coords: [33.4484, -112.0740],
+        envData: {
+          temperature: 31.2,
+          humidity: 30,
+          lux: 980,
+          batteryLife: 87
+        }
+      },
+      { 
+        time: 'March 5, 2025 - 02:00 PM', 
+        status: 'Estimated Delivery', 
+        location: 'New York, NY', 
+        completed: false, 
+        coords: [40.7128, -74.0060],
+        envData: {
+          temperature: 12.8,
+          humidity: 65,
+          lux: 950,
+          batteryLife: null // Not yet recorded
+        }
+      }
     ],
     currentLocation: 'In Flight',
     currentCoords: [37.0902, -95.7129], // Somewhere in the middle of the US
@@ -94,11 +130,71 @@ export const activeShipments = [
     transportType: 'truck',
     lastUpdate: '2 hours ago',
     checkpoints: [
-      { time: 'Feb 27, 2025 - 10:30 AM', status: 'Picked Up', location: 'Chicago, IL', completed: true, coords: [41.8781, -87.6298] },
-      { time: 'Feb 28, 2025 - 02:15 PM', status: 'In Transit', location: 'Indianapolis, IN', completed: true, coords: [39.7684, -86.1581] },
-      { time: 'March 1, 2025 - 08:45 AM', status: 'In Transit', location: 'Atlanta, GA', completed: true, coords: [33.7490, -84.3880] },
-      { time: 'March 2, 2025 - 09:30 AM', status: 'Out for Delivery', location: 'Miami, FL', completed: true, coords: [25.7617, -80.1918] },
-      { time: 'March 2, 2025 - 05:00 PM', status: 'Estimated Delivery', location: 'Miami, FL', completed: false, coords: [25.7617, -80.1918] }
+      { 
+        time: 'Feb 27, 2025 - 10:30 AM', 
+        status: 'Picked Up', 
+        location: 'Chicago, IL', 
+        completed: true, 
+        coords: [41.8781, -87.6298],
+        envData: {
+          temperature: 1.3,
+          humidity: 72,
+          lux: 830,
+          batteryLife: 100
+        }
+      },
+      { 
+        time: 'Feb 28, 2025 - 02:15 PM', 
+        status: 'In Transit', 
+        location: 'Indianapolis, IN', 
+        completed: true, 
+        coords: [39.7684, -86.1581],
+        envData: {
+          temperature: 3.8,
+          humidity: 68,
+          lux: 920,
+          batteryLife: 92
+        }
+      },
+      { 
+        time: 'March 1, 2025 - 08:45 AM', 
+        status: 'In Transit', 
+        location: 'Atlanta, GA', 
+        completed: true, 
+        coords: [33.7490, -84.3880],
+        envData: {
+          temperature: 14.2,
+          humidity: 77,
+          lux: 1050,
+          batteryLife: 85
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 09:30 AM', 
+        status: 'Out for Delivery', 
+        location: 'Miami, FL', 
+        completed: true, 
+        coords: [25.7617, -80.1918],
+        envData: {
+          temperature: 27.5,
+          humidity: 83,
+          lux: 1580,
+          batteryLife: 76
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 05:00 PM', 
+        status: 'Estimated Delivery', 
+        location: 'Miami, FL', 
+        completed: false, 
+        coords: [25.7617, -80.1918],
+        envData: {
+          temperature: 26.8,
+          humidity: 80,
+          lux: 760,
+          batteryLife: 72
+        }
+      }
     ],
     currentLocation: 'Miami, FL',
     currentCoords: [25.7617, -80.1918],
@@ -175,18 +271,162 @@ export const activeShipments = [
     transportType: 'truck',
     lastUpdate: '45 minutes ago',
     checkpoints: [
-      { time: 'March 2, 2025 - 08:15 AM', status: 'Picked Up', location: 'Phoenix, AZ', completed: true, coords: [33.4484, -112.0740] },
-      { time: 'March 2, 2025 - 09:40 AM', status: 'In Transit', location: 'Apache Junction, AZ', completed: true, coords: [33.4150, -111.5450] },
-      { time: 'March 2, 2025 - 10:55 AM', status: 'In Transit', location: 'Globe, AZ', completed: true, coords: [33.3942, -110.7865] },
-      { time: 'March 2, 2025 - 12:10 PM', status: 'In Transit', location: 'Peridot, AZ', completed: true, coords: [33.3023, -110.4526] },
-      { time: 'March 2, 2025 - 01:25 PM', status: 'In Transit', location: 'Show Low, AZ', completed: true, coords: [34.2542, -110.0298] },
-      { time: 'March 2, 2025 - 02:40 PM', status: 'In Transit', location: 'Concho, AZ', completed: true, coords: [34.4784, -109.6209] },
-      { time: 'March 2, 2025 - 03:55 PM', status: 'In Transit', location: 'St. Johns, AZ', completed: true, coords: [34.5080, -109.3710] },
-      { time: 'March 2, 2025 - 05:00 PM', status: 'Rest Stop', location: 'Near Zuni, NM', completed: true, coords: [35.0681, -108.8494] },
-      { time: 'March 2, 2025 - 07:15 PM', status: 'In Transit', location: 'Gallup, NM', completed: true, coords: [35.5281, -108.7426] },
-      { time: 'March 2, 2025 - 08:30 PM', status: 'In Transit', location: 'Grants, NM', completed: false, coords: [35.1480, -107.8514] },
-      { time: 'March 3, 2025 - 10:00 AM', status: 'In Transit', location: 'Los Lunas, NM', completed: false, coords: [34.8066, -106.7336] },
-      { time: 'March 3, 2025 - 11:30 AM', status: 'Estimated Delivery', location: 'Albuquerque, NM', completed: false, coords: [35.0844, -106.6504] }
+      { 
+        time: 'March 2, 2025 - 08:15 AM', 
+        status: 'Picked Up', 
+        location: 'Phoenix, AZ', 
+        completed: true, 
+        coords: [33.4484, -112.0740],
+        envData: {
+          temperature: 24.2,
+          humidity: 35,
+          lux: 1120,
+          batteryLife: 100
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 09:40 AM', 
+        status: 'In Transit', 
+        location: 'Apache Junction, AZ', 
+        completed: true, 
+        coords: [33.4150, -111.5450],
+        envData: {
+          temperature: 26.7,
+          humidity: 32,
+          lux: 1340,
+          batteryLife: 97
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 10:55 AM', 
+        status: 'In Transit', 
+        location: 'Globe, AZ', 
+        completed: true, 
+        coords: [33.3942, -110.7865],
+        envData: {
+          temperature: 28.3,
+          humidity: 29,
+          lux: 1460,
+          batteryLife: 95
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 12:10 PM', 
+        status: 'In Transit', 
+        location: 'Peridot, AZ', 
+        completed: true, 
+        coords: [33.3023, -110.4526],
+        envData: {
+          temperature: 29.8,
+          humidity: 27,
+          lux: 1580,
+          batteryLife: 92
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 01:25 PM', 
+        status: 'In Transit', 
+        location: 'Show Low, AZ', 
+        completed: true, 
+        coords: [34.2542, -110.0298],
+        envData: {
+          temperature: 26.1,
+          humidity: 31,
+          lux: 1490,
+          batteryLife: 88
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 02:40 PM', 
+        status: 'In Transit', 
+        location: 'Concho, AZ', 
+        completed: true, 
+        coords: [34.4784, -109.6209],
+        envData: {
+          temperature: 24.3,
+          humidity: 33,
+          lux: 1320,
+          batteryLife: 85
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 03:55 PM', 
+        status: 'In Transit', 
+        location: 'St. Johns, AZ', 
+        completed: true, 
+        coords: [34.5080, -109.3710],
+        envData: {
+          temperature: 23.2,
+          humidity: 35,
+          lux: 1150,
+          batteryLife: 81
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 05:00 PM', 
+        status: 'Rest Stop', 
+        location: 'Near Zuni, NM', 
+        completed: true, 
+        coords: [35.0681, -108.8494],
+        envData: {
+          temperature: 21.5,
+          humidity: 38,
+          lux: 850,
+          batteryLife: 78
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 07:15 PM', 
+        status: 'In Transit', 
+        location: 'Gallup, NM', 
+        completed: true, 
+        coords: [35.5281, -108.7426],
+        envData: {
+          temperature: 18.3,
+          humidity: 42,
+          lux: 320,
+          batteryLife: 74
+        }
+      },
+      { 
+        time: 'March 2, 2025 - 08:30 PM', 
+        status: 'In Transit', 
+        location: 'Grants, NM', 
+        completed: false, 
+        coords: [35.1480, -107.8514],
+        envData: {
+          temperature: 16.5,
+          humidity: 46,
+          lux: 15,
+          batteryLife: 70
+        }
+      },
+      { 
+        time: 'March 3, 2025 - 10:00 AM', 
+        status: 'In Transit', 
+        location: 'Los Lunas, NM', 
+        completed: false, 
+        coords: [34.8066, -106.7336],
+        envData: {
+          temperature: 19.2,
+          humidity: 40,
+          lux: 1100,
+          batteryLife: null
+        }
+      },
+      { 
+        time: 'March 3, 2025 - 11:30 AM', 
+        status: 'Estimated Delivery', 
+        location: 'Albuquerque, NM', 
+        completed: false, 
+        coords: [35.0844, -106.6504],
+        envData: {
+          temperature: null,
+          humidity: null,
+          lux: null,
+          batteryLife: null
+        }
+      }
     ],
     currentLocation: 'Grants, NM',
     currentCoords: [35.1480, -107.8514],
