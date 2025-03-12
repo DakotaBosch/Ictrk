@@ -1,3 +1,4 @@
+// components/tracking/ShipmentMap.jsx
 import React, { useEffect, useRef } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -42,7 +43,7 @@ const ShipmentMap = ({ selectedShipment }) => {
         }
 
         // Create new map instance
-        mapInstanceRef.current = L.map(mapRef.current).setView(selectedShipment.currentCoords, 4);
+        mapInstanceRef.current = L.map(mapRef.current);
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -56,7 +57,7 @@ const ShipmentMap = ({ selectedShipment }) => {
 
           let markerColor = "#9ca3af"; // gray for future
           if (isCompleted) markerColor = "#10b981"; // green for completed
-          if (isCurrent) markerColor = "#3b82f6"; // blue for current
+          //if (isCurrent) markerColor = "#3b82f6"; // blue for current
 
           // Create a simple circle marker for checkpoints
           const markerIcon = L.divIcon({
@@ -99,11 +100,15 @@ const ShipmentMap = ({ selectedShipment }) => {
             .bindPopup(popupContent);
         });
 
-        // Use our utility function to draw the route with appropriate styling based on transport mode
-        const routeLayers = await drawShipmentRoute(L, mapInstanceRef.current, selectedShipment);
-
-        if (routeLayers) {
-          routeLayerRef.current = routeLayers;
+        // Use our updated utility function to draw the route
+        // This will now use Mapbox for routing if available
+        try {
+          const routeLayers = await drawShipmentRoute(L, mapInstanceRef.current, selectedShipment);
+          if (routeLayers) {
+            routeLayerRef.current = routeLayers;
+          }
+        } catch (error) {
+          console.error('Error drawing shipment route:', error);
         }
       }
     };

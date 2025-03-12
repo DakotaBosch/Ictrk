@@ -16,7 +16,7 @@ const TrackPage = () => {
   useEffect(() => {
     // Select the second shipment (index 1) by default
     if (activeShipments.length >= 2) {
-      setSelectedShipment(activeShipments[1]);
+      setSelectedShipment(activeShipments[0]);
     }
   }, []);
 
